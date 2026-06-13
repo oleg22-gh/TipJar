@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-contract TipJar {
+import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
+
+contract TipJar is Ownable {
+    
     struct Tip {
         address from;
         string message;
