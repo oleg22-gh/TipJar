@@ -18,3 +18,14 @@ docs/
 .env
 .env.*
 !.env.example
+
+# Node / frontend
+node_modules/
+dist/
+*.log
+
+# OS / editor
+.DS_Store
+
+# Local preview config
+.claude/launch.json

@@ -1,3 +1,38 @@
+# TipJar
+
+A simple on-chain tip jar: anyone can leave a tip with a message, only the owner can withdraw.
+
+## Deployments
+
+| Network | Address | Explorer |
+|---------|---------|----------|
+| Sepolia | `0xB07C55a05510B1585DB53847F47537570ee69a5c` | [Etherscan](https://sepolia.etherscan.io/address/0xB07C55a05510B1585DB53847F47537570ee69a5c) |
+
+## Frontend
+
+A React + web3.js dApp with a cartoony comic UI lives in [`frontend/`](frontend/).
+
+![TipJar frontend](assets/frontend.png)
+
+**Features**
+- 🦊 Connect MetaMask, auto-detects the network and offers to switch to Sepolia
+- 🪙 Leave a tip with a message (`addTip`)
+- 🫙 Jar shows the **real contract balance** (what's actually withdrawable), plus the all-time total
+- 🎉 Live "Wall of Tippers" feed from `getTips()` (auto-refreshes)
+- 💰 Owner-only **Cash out** button (`withdraw`)
+
+**Run it locally**
+
+```shell
+$ cd frontend
+$ npm install
+$ npm run dev
+```
+
+> Reads go through a CORS-friendly public RPC (`ethereum-sepolia-rpc.publicnode.com`);
+> transactions are signed and broadcast by MetaMask. The contract address, ABI and
+> network live in [`frontend/src/config.js`](frontend/src/config.js).
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
@@ -48,7 +83,12 @@ $ anvil
 ### Deploy
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+$ source .env
+$ forge script script/TipJar.s.sol:TipJarScript \
+    --rpc-url sepolia \
+    --account deployer \
+    --broadcast \
+    --verify
 ```
 
 ### Cast
